@@ -1,0 +1,162 @@
+<mat-card>
+    <div class="container">
+    <b><span>Realizar Pedido</span></b>
+    <button mat-flat-button color="primary" class="float-right" [disabled]="validateSubmit()" (click)="submitAction()">
+        <mat-icon>print</mat-icon> Aceptar y enviar factura
+    </button>
+</div>
+</mat-card>
+
+<hr>
+<mat-card>
+    <b><span>Detalles Cliente:</span></b>
+    <form [formGroup]="gestionPedidoForm">
+        <div fxFlex="" fxLayout="column">
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="nombre" required>
+                    <mat-error *ngIf="gestionPedidoForm.controls.nombre.touched && gestionPedidoForm.controls.nombre.invalid">
+                        <span *ngIf="gestionPedidoForm.controls.nombre.errors.required">Este campo es obligatorio</span>
+                        <span *ngIf="gestionPedidoForm.controls.nombre.errors.pattern">Este campo es invalido</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" required>
+                    <mat-error *ngIf="gestionPedidoForm.controls.email.touched && gestionPedidoForm.controls.email.invalid">
+                        <span *ngIf="gestionPedidoForm.controls.email.errors.required">Este campo es obligatorio</span>
+                        <span *ngIf="gestionPedidoForm.controls.email.errors.pattern">Este campo es invalido</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Numero Contacto</mat-label>
+                    <input matInput formControlName="numero_contacto" required>
+                    <mat-error *ngIf="gestionPedidoForm.controls.numero_contacto.touched && gestionPedidoForm.controls.numero_contacto.invalid">
+                        <span *ngIf="gestionPedidoForm.controls.numero_contacto.errors.required">Este campo es obligatorio</span>
+                        <span *ngIf="gestionPedidoForm.controls.numero_contacto.errors.pattern">Este campo es invalido</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Metodo Pago</mat-label>
+                    <mat-select formControlName="metodoPago" required>
+                        <mat-option value="Cash">Efectivo</mat-option>
+                        <mat-option value="Credit Card">Tarjeta Credito</mat-option>
+                        <mat-option value="Debit Card">Tarjeta Debito</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="gestionPedidoForm.controls.metodoPago.touched && gestionPedidoForm.controls.metodoPago.invalid">
+                        <span *ngIf="gestionPedidoForm.controls.metodoPago.errors.required">Este campo es obligatorio</span>
+                        <span *ngIf="gestionPedidoForm.controls.metodoPago.errors.pattern">Este campo es invalido</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-card>
+    <mat-card>
+
+        <b><span>Seleccionar Producto:</span></b>
+        
+        <form [formGroup]="gestionPedidoForm">
+            <div fxFlex fxLayout="column">
+                <div fxLayout="row wrap">
+                    <mat-form-field appearance="fill" fxFlex>
+                        <mat-label>Categoria</mat-label>
+                        <mat-select formControlName="categoria" (selectionChange)="getProductoByCategoria($event.value)">
+                            <mat-option *ngFor="let categoria of categoria" [value]="categoria">
+                                {{ categoria.nombre }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+        
+                    <mat-form-field appearance="fill" fxFlex>
+                        <mat-label>Producto</mat-label>
+                        <mat-select formControlName="producto" (selectionChange)="getDetallesProducto($event.value)">
+                            <mat-option *ngFor="let producto of producto" [value]="producto">
+                                {{ producto.nombre }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+        
+                    <mat-form-field appearance="fill" fxFlex>
+                        <mat-label>Precio</mat-label>
+                        <input matInput formControlName="precio" required readonly>
+                        <mat-error *ngIf="gestionPedidoForm.controls.precio.touched && gestionPedidoForm.controls.precio.invalid">
+                            <span *ngIf="gestionPedidoForm.controls.precio.errors.required">Este campo es obligatorio</span>
+                            <span *ngIf="gestionPedidoForm.controls.precio.errors.pattern">Este campo es invalido</span>
+                        </mat-error>
+                    </mat-form-field>
+        
+                    <mat-form-field appearance="fill" fxFlex>
+                        <mat-label>Cantidad</mat-label>
+                        <input matInput formControlName="cantidad" required (keyup)="setCantidad($event)" #input>
+                        <mat-error *ngIf="gestionPedidoForm.controls.cantidad.touched && gestionPedidoForm.controls.cantidad.invalid">
+                            <span *ngIf="gestionPedidoForm.controls.cantidad.errors.required">Este campo es obligatorio</span>
+                            <span *ngIf="gestionPedidoForm.controls.cantidad.errors.pattern">Este campo es invalido</span>
+                        </mat-error>
+                    </mat-form-field>
+        
+                    <mat-form-field appearance="fill" fxFlex>
+                        <mat-label>Total</mat-label>
+                        <input matInput formControlName="total" required readonly>
+                        <mat-error *ngIf="gestionPedidoForm.controls.total.touched && gestionPedidoForm.controls.total.invalid">
+                            <span *ngIf="gestionPedidoForm.controls.total.errors.required">Este campo es obligatorio</span>
+                            <span *ngIf="gestionPedidoForm.controls.total.errors.pattern">Este campo es invalido</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+        
+        <div class="container">
+            <button mat-flat-button color="primary" [disabled]="validateProductoAdd()" (click)="add()">Añadir</button>
+            <button mat-flat-button color="primary" class="float-right">
+                <mat-icon>monetization_on</mat-icon> Total : {{ total }}
+            </button>
+        </div>
+        </mat-card>
+
+        <div class="responsive_table">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                 <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef>Nombre</th>
+                    <td mat-cell *matCellDef="let element">{{element.id}}</td>
+                 </ng-container>
+
+                 <ng-container matColumnDef="categoria">
+                    <th mat-header-cell *matHeaderCellDef>Categoria</th>
+                    <td mat-cell *matCellDef="let element">{{element.categoria}}</td>
+                 </ng-container>
+
+                 <ng-container matColumnDef="precio">
+                    <th mat-header-cell *matHeaderCellDef>Precio</th>
+                    <td mat-cell *matCellDef="let element">{{element.precio}}</td>
+                 </ng-container>
+
+                 <ng-container matColumnDef="cantidad">
+                    <th mat-header-cell *matHeaderCellDef>Cantidad</th>
+                    <td mat-cell *matCellDef="let element">{{element.cantidad}}</td>
+                 </ng-container>
+
+                 <ng-container matColumnDef="total">
+                    <th mat-header-cell *matHeaderCellDef>Total</th>
+                    <td mat-cell *matCellDef="let element">{{element.total}}</td>
+                 </ng-container>
+
+                 <ng-container matColumnDef="editar">
+                    <th mat-header-cell *matHeaderCellDef>Borrar</th>
+                    <td mat-cell *matCellDef="let element; let i=index" class="action-link">
+                        <button mat-icon-button color="primary" matTooltip="Editar" (click)="handleDeleteAccion(i,element)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                 </ng-container>
+
+                 <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>

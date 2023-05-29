@@ -1,0 +1,27 @@
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+hr{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+mat-card{
+    border-radius: 0.2em;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 20px;
+
+}
+
+.responsive_table{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}

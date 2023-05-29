@@ -1,0 +1,38 @@
+<mat-card>
+    <div class="container">
+    <b><span>Gestion Categoria</span></b>
+    <button mat-flat-button color="primary" (click)="handleAddAccion()">
+        <mat-icon>add_circle</mat-icon> Añadir Categoria
+    </button>
+</div>
+</mat-card>
+
+<hr>
+
+<mat-card>
+    <mat-form-field appearance="fill">
+        <mat-label>Filtro</mat-label>
+        <input matInput (keyup)="applyFiltro($event)" #input>
+    </mat-form-field>
+</mat-card>
+
+<hr>
+<div class="responsive_table">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef>Nombre</th>
+            <td mat-cell *matCellDef="let element">{{ element.nombre }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="editar">
+            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+            <td mat-cell *matCellDef="let element" class="action-link">
+                <button mat-icon-button color="primary" matTooltip="Editar" (click)="handleEditarAccion(element)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+        <tr mat-row *matRowDef="let row; columns:displayedColumns;"></tr>
+    </table>
+</div>

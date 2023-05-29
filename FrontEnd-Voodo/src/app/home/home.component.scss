@@ -1,0 +1,122 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  .footer {
+    padding: 6px;
+    text-align: center;
+    color: white;
+    background: #7b1fa2;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+ 
+  .wrapper {
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    background-color: #7b1fa2;
+  }
+  
+  nav {
+    display: flex;
+    width: 95%;
+  }
+  
+
+  
+  a.logo {
+    margin-right: auto;
+  }
+
+  
+  ul {
+    display: flex;
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+  }
+  ul li a {
+    margin-left: 1.5em;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #ffffff;
+    position: relative;
+    font-size: 1.25em;
+    cursor: pointer;
+  }
+  
+  @media (max-width: 1024px) {
+    .wrapper {
+      height: auto;
+    }
+    
+    nav {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    a.logo {
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+      margin-right: 0px;
+    }
+    
+    ul {
+      width: 100%;
+      margin-bottom: 1em;
+      justify-content: space-between;
+    }
+    
+    ul li a {
+      margin-left: 0px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    a.logo {
+      margin: 1.5em;
+    }
+    
+    ul {
+      flex-direction: column;
+    }
+    
+    ul li {
+      margin: 0.3em;
+      text-align: center;
+    }
+    
+    ul li a {
+      margin-left: 0px;
+    }
+  }
+  
+  .sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+  }
+  
+  .mat-icon {
+    vertical-align: middle;
+  }
+  .bg-image {
+    background-image: url("../../assets/img/food1.jpg");
+    
+    filter: blur(3px);
+    -webkit-filter: blur(3px);
+    
+    height: 50%; 
+    
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  

@@ -1,0 +1,37 @@
+<body>
+    <mat-card>
+        <b><span>Panel control</span></b>
+    </mat-card>
+    <br>
+    <div class="row">
+        <div class="column">
+            <div class="card">
+                <div class="container">
+                    <h2 class="title">Total Categoria:</h2>
+                    <h2 class="title">{{ data?.categoria }}</h2>
+                    <p><button class="button" [routerLink]="['/voodo/categoria']">Ver Categoria</button></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card">
+                <div class="container">
+                    <h2 class="title">Total Producto:</h2>
+                    <h2 class="title">{{ data?.producto }}</h2>
+                    <p><button class="button" [routerLink]="['/voodo/producto']">Ver Producto</button></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card">
+                <div class="container">
+                    <h2 class="title">Total Factura:</h2>
+                    <h2 class="title">{{ data?.factura }}</h2>
+                    <p><button class="button" [routerLink]="['/voodo/factura']">Ver Factura</button></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

@@ -1,0 +1,76 @@
+<mat-toolbar>
+    <mat-toolbar-row fxLayout="row">
+        <span>Registrar</span>
+        <span class="spacer"></span>
+        <button class="mat-dialog-close" mat-icon-button mat-dialog-close>
+         <mat-icon>close</mat-icon>   
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="registrarForm">
+        <div fxFlex fxLayout="column">
+            <mat-form-field appearance="fill" fxFlex>
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="nombre" required>
+                <mat-error *ngIf="registrarForm.controls.nombre.touched && registrarForm.controls.nombre.invalid">
+                    <span *ngIf="registrarForm.controls.nombre.errors.required">Este campo es obligatorio</span>
+                    <span *ngIf="registrarForm.controls.nombre.errors.pattern">Este campo es invalido</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" fxFlex>
+                <mat-label>Numero Contacto</mat-label>
+                <input matInput formControlName="numero_contacto" required>
+                <mat-error *ngIf="registrarForm.controls.numero_contacto.touched && registrarForm.controls.numero_contacto.invalid">
+                    <span *ngIf="registrarForm.controls.numero_contacto.errors.required">Este campo es obligatorio</span>
+                    <span *ngIf="registrarForm.controls.numero_contacto.errors.pattern">Este campo es invalido</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" fxFlex>
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" required>
+                <mat-error *ngIf="registrarForm.controls.email.touched && registrarForm.controls.email.invalid">
+                    <span *ngIf="registrarForm.controls.email.errors.required">Este campo es obligatorio</span>
+                    <span *ngIf="registrarForm.controls.email.errors.pattern">Este campo es invalido</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" fxFlex>
+                <mat-label>Contraseña</mat-label>
+                <input matInput formControlName="password" type="password" required [type]="password ? 'password': 'text'">
+                <button type="button" mat-icon-button matSuffix (click)="password = !password"[attr.aria-label]="'Hide Password'" [attr.aria-pressed]="password">
+                    <mat-icon matSuffix (click)="password= !password">{{password ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="registrarForm.controls.password.touched && registrarForm.controls.password.invalid">
+                    <span *ngIf="registrarForm.controls.password.errors.required">Este campo es obligatorio</span>
+                    <span *ngIf="registrarForm.controls.password.errors.pattern">Este campo es invalido</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" fxFlex>
+                <mat-label>Confirmar Contraseña</mat-label>
+                <input matInput formControlName="confirmarPassword" type="confirmarPassword" required [type]="confirmarPassword ? 'confirmarPassword': 'text'">
+                <button type="button" mat-icon-button matSuffix (click)="confirmarPassword = !confirmarPassword"[attr.aria-label]="'Hide Password'" [attr.aria-pressed]="confirmarPassword">
+                    <mat-icon matSuffix (click)="confirmarPassword= !confirmarPassword">{{confirmarPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="registrarForm.controls.confirmarPassword.touched && registrarForm.controls.confirmarPassword.invalid">
+                    <span *ngIf="registrarForm.controls.confirmarPassword.errors.required">Este campo es obligatorio</span>
+                    <span *ngIf="registrarForm.controls.confirmarPassword.errors.pattern">Este campo es invalido</span>
+                </mat-error>
+                <mat-hint *ngIf="validateSubmit() && !(registrarForm.controls.confirmarPassword.invalid)">
+                    <span>Contraseña nueva y confirmar contraseña no coinciden</span>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-raised-button  type="submit" (click)="handleSubmit()"[disabled]="validateSubmit() || !(registrarForm.valid && registrarForm.dirty)">
+        <mat-icon>save</mat-icon> Registrar
+    </button>
+    <button mat-raised-button color="warn" mat-dialog-close=""><mat-icon>cancel</mat-icon>Cerrar</button>
+</mat-dialog-actions>
